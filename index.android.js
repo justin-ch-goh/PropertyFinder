@@ -1,51 +1,69 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
 
-class PropertyFinder extends Component {
+var SearchPage = require('./SearchPage.android');
+
+var React = require('react-native');
+var {
+    Navigator
+} = React;
+
+var styles = React.StyleSheet.create({
+  text: {
+    color: 'black',
+    backgroundColor: '#C1DAD6',
+    fontSize: 30,
+    margin: 80
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  }
+});
+
+class HelloWorld extends React.Component {
+  render() {
+    return <React.Text style={styles.text}>Hello World (again)!</React.Text>;
+  }
+}
+
+class PropertyFinderApp extends React.Component {
+
+  _renderScene(route, navigator) {
+    if (route.component) {
+      //return <route.component navigator={navigator} {...route.passProps}/>
+      return React.createElement(route.component, { ...route.passProps, route, navigator});
+    }
+  }
+
+/*
+  _navigate(property) {
+    this.props.navigator.push({
+      title: 'PropertyFinder',
+      component: SearchPage,
+    })
+  }
+*/
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Navigator
+        style={styles.container}
+        initialRoute={{
+          title: 'PropertyFinder',
+          component: SearchPage,
+        }}
+        /*
+        renderScene={(route, navigator) => {
+          if (route.component) {
+            return React.createElement(route.component, { navigator });
+          }
+        }}
+        */
+        renderScene={this._renderScene}
+      />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+React.AppRegistry.registerComponent('PropertyFinder', function() { return PropertyFinderApp });
 
-AppRegistry.registerComponent('PropertyFinder', () => PropertyFinder);
