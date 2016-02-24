@@ -58,6 +58,10 @@ var styles = StyleSheet.create({
     borderColor: '#48BBEC',
     borderRadius: 8,
     color: '#48BBEC'
+  },
+  image: {
+    width: 217,
+    height: 138
   }
 });
 
@@ -84,6 +88,7 @@ class SearchPage extends Component {
             underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>Location</Text>
         </TouchableHighlight>
+        <Image source={require('image!house')} style={styles.image}/>
       </View>
     );
   }
